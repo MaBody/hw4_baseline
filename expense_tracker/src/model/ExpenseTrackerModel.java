@@ -75,10 +75,9 @@ public class ExpenseTrackerModel {
    */
   public boolean register(ExpenseTrackerModelListener listener) {
     // For the Observable class, this is one of the methods.
-    // ob
-    // System.err.println(listener != null);
 
     if (listener != null && !observers.contains(listener)) {
+      observers.add(listener);
       return true;
     }
 
