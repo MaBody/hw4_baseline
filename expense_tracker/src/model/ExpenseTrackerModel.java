@@ -3,12 +3,14 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashSet;
 
-public class ExpenseTrackerModel extends ExpenseTrackerObserver {
+public class ExpenseTrackerModel {
 
   // encapsulation - data integrity
   private List<Transaction> transactions;
   private List<Integer> matchedFilterIndices;
+  private HashSet<ExpenseTrackerModelListener> observers = new HashSet<>();
 
   // This is applying the Observer design pattern.
   // Specifically, this is the Observable class.
@@ -61,5 +63,51 @@ public class ExpenseTrackerModel extends ExpenseTrackerObserver {
     List<Integer> copyOfMatchedFilterIndices = new ArrayList<Integer>();
     copyOfMatchedFilterIndices.addAll(this.matchedFilterIndices);
     return copyOfMatchedFilterIndices;
+  }
+
+  /**
+   * Registers the given ExpenseTrackerModelListener for
+   * state change events.
+   *
+   * @param listener The ExpenseTrackerModelListener to be registered
+   * @return If the listener is non-null and not already registered,
+   *         returns true. If not, returns false.
+   */
+  public boolean register(ExpenseTrackerModelListener listener) {
+    // For the Observable class, this is one of the methods.
+    // ob
+    // System.err.println(listener != null);
+
+    if (listener != null && !observers.contains(listener)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public int numberOfListeners() {
+    // For testing, this is one of the methods.
+    if (observers == null) {
+      return 0;
+    } else {
+      return observers.size();
+
+    }
+  }
+
+  public boolean containsListener(ExpenseTrackerModelListener listener) {
+    // For testing, this is one of the methods.
+    if (observers == null) {
+      return false;
+    } else {
+      return observers.contains(listener);
+    }
+  }
+
+  protected void stateChanged() {
+    // For the Observable class, this is one of the methods.
+    for (ExpenseTrackerModelListener o : observers) {
+      o.update(this);
+    }
   }
 }
