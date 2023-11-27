@@ -5,6 +5,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.HashSet;
 
+/**
+ * /**
+ * The ExpenseTrackerModel class allows users to store a list of transactions
+ * and make changes as needed.
+ * 
+ * 
+ */
 public class ExpenseTrackerModel {
 
   // encapsulation - data integrity
@@ -75,6 +82,7 @@ public class ExpenseTrackerModel {
    * @param listener The ExpenseTrackerModelListener to be registered
    * @return If the listener is non-null and not already registered,
    *         returns true. If not, returns false.
+   * @author Mattis
    */
   public boolean register(ExpenseTrackerModelListener listener) {
     // For the Observable class, this is one of the methods.
@@ -87,6 +95,13 @@ public class ExpenseTrackerModel {
     return false;
   }
 
+  /**
+   * Finds the number of listeners
+   *
+   * @return If the listener is non-null, return number of listeners. Else return
+   *         0.
+   * @author Ishita
+   */
   public int numberOfListeners() {
     // For testing, this is one of the methods.
     if (observers == null) {
@@ -97,6 +112,13 @@ public class ExpenseTrackerModel {
     }
   }
 
+  /**
+   * Checks if there is a listener
+   *
+   * @return If the listener is non-null, return true. Else return false.
+   * @author Mattis
+   */
+
   public boolean containsListener(ExpenseTrackerModelListener listener) {
     // For testing, this is one of the methods.
     if (observers == null) {
@@ -105,6 +127,12 @@ public class ExpenseTrackerModel {
       return observers.contains(listener);
     }
   }
+
+  /**
+   * updates the state of the listeners
+   * 
+   * @author Ishita
+   */
 
   protected void stateChanged() {
     // For the Observable class, this is one of the methods.
